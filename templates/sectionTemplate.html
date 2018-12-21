@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="section section-basic">
+    <div class="container">
+
+        {% if page == 'catalog' %}
+            {% include  "catalog.html"%}
+        {% endif %}
+        {% if page == 'catalogItems' %}
+            {% include  "catalogItems.html"%}
+        {% endif %}
+        {% if page == 'itemDetails' %}
+            {% include  "itemDetails.html"%}
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

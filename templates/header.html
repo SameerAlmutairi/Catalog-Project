@@ -1,0 +1,116 @@
+
+<nav class="navbar navbar-default navbar-fixed-top navbar-color-on-scroll navbar-transparent"
+     color-on-scroll="" id="sectionNav">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse">
+            	<span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                Juventus Catalog Logo
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="button-container">
+                        {%if 'username' not in session %}
+                            <div id="signinButton">
+                                <span class="g-signin"
+                                      data-scope="openid email"
+                                      data-clientid="446300950753-2sun93ghdddqrbsielsabsftp1reioil.apps.googleusercontent.com"
+                                      data-redirecturi="postmessage"
+                                      data-accesstype="offline"
+                                      data-cookiepolicy="single_host_origin"
+                                      data-callback="signInCallback"
+                                      data-approvalprompt="force">
+                                </span>
+                            </div>
+                        {% else %}
+                            <a href="{{url_for('gdisconnect')}}">Logout </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+    </div>
+</nav>
+
+
+
+<div class="page-header header-filter clear-filter" data-parallax="true"
+         style="background-image: url('/static/img/bg.jpg'); transform: translate3d(0px, 0px, 0px);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="brand">
+                    <h1>Juventus Catalog
+                        <div class="pro-badge">
+                                store
+                        </div>
+                    </h1>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Result Modal -->
+<div class="modal fade" id="loginResultModal" tabindex="-1" role="dialog" aria-labelledby="loginResultModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="result">
+
+          </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- CallBack method -->
+<script>
+    function signInCallback(authResult) {
+        console.log('test');
+      if (authResult['code']) {
+        // Hide the sign-in button now that the user is authorized
+        $('#signinButton').attr('style', 'display: none');
+        // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
+        $.ajax({
+          type: 'POST',
+          url: '/gconnect?state={{state}}',
+          processData: false,
+          data: authResult['code'],
+          contentType: 'application/octet-stream; charset=utf-8',
+          success: function(result) {
+            // Handle or verify the server response if necessary.
+            if (result) {
+              // $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                $('#loginResultModal').modal('show');
+                $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                setTimeout(function() {
+                    window.location.href = "{{ url_for('showAllCatalogs') }}";
+                }, 4000);
+            } else if (authResult['error']) {
+                console.log('There was an error: ' + authResult['error']);
+            } else {
+                $('#loginResultModal').modal('show');
+                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+            }
+          }
+      });
+      }
+    }
+</script>

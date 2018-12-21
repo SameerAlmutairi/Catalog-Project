@@ -1,0 +1,227 @@
+<!--<a href="{{url_for('editItem', catalog_id = catalog.id, item_id = item.id) }}">Edit Item</a>-->
+<!--<a href="{{url_for('deleteItem', catalog_id = catalog.id, item_id = item.id) }}">Delete Item</a>-->
+<div class="container">
+    <div class="wrapper">
+        <section class="" id="itemImages">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Carousel indicators -->
+                <ol class="carousel-indicators">
+                    {% for i in item_photos %}
+                        <li data-target="#myCarousel" data-slide-to="{{item_photos.index(i)}}"
+                            class="{{'active' if item_photos.index(i) == 0}}"></li>
+                    {% endfor %}
+                </ol>
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    {% for i in item_photos %}
+                        <div class="item {{'active' if item_photos.index(i) == 0}}">
+                            <!--{{'has-success has-feedback' if not error_username }}-->
+                            <img src="{{i.photo_url}}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left blackColor"></span>
+                </a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right blackColor"></span>
+                </a>
+            </div>
+        </section>
+        <aside class="" id="ItemDetails">
+            <h1 class="itemName">
+                {{item.name}}
+            </h1>
+            <p class="main-description">
+                {{item.description}}
+            </p>
+            <div class="ItemPrice">
+                <small>$</small>{{item.price}}
+            </div>
+
+            <div class="ItemButtons">
+                {% if session['user_id'] == item.user_id%}
+                    <a data-toggle="modal" data-target="#EditModal" class="btn btn-info">Edit Item</a>
+                    <a data-toggle="modal" data-target="#DeleteModal" class="btn btn-danger" href="">Delete Item</a>
+                {% endif %}
+            </div >
+
+        </aside>
+    </div>
+</div>
+
+<!--Edit Modal-->
+<div class="modal fade" tabindex="-1" id="EditModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditModalLabel">
+                    Edit Item
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="newModalForm" method ='POST'
+		                enctype='multipart/form-data'
+		                action ="{{ url_for('editItem', catalog_id = catalog.id, item_id = item.id)}}">
+                    <div class="form-group">
+                        <label for="name">
+                            Item Name
+                        </label>
+                        <input type="text" class="form-control" id="name" name='name' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">
+                            Item Description
+                        </label>
+                        <input type="text" class="form-control" id="description"
+                               name='description' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">
+                            Item Price
+                        </label>
+                        <input type="text" class="form-control" id="price" name='price' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="image1">
+                            First Image
+                        </label>
+                        <input type="text" class="form-control"  id="image1" name='image[]' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="image2">
+                            Second Image
+                        </label>
+                        <input type="text" class="form-control" id="image2" name='image[]' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="image3">
+                            Third Image
+                        </label>
+                        <input type="text" class="form-control" id="image3" name='image[]' required/>
+                    </div>
+                    <!--<div class="form-row">-->
+                        <!--<div class="col-md-6 mb-3">-->
+                            <!--<label for="name">Item Name</label>-->
+                            <!--<input type="text" class="form-control" id="name" placeholder="name" name='name' required/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<div class="col-md-6 mb-3">-->
+                            <!--<label for="description">Item Description</label>-->
+                            <!--<input type="text" class="form-control" id="description"-->
+                                   <!--placeholder="description" name='description' required/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<div class="col-md-6 mb-3">-->
+                            <!--<label for="price">Item Price</label>-->
+                            <!--<input type="text" class="form-control" id="price"-->
+                                   <!--placeholder="price" name='price' required/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<div class="col-md-6 mb-3">-->
+                            <!--<label for="image1">First Image</label>-->
+                            <!--<input type='text' class="form-control" id="image1"-->
+                                   <!--name='image[]' placeholder='first image link' required/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<div class="col-md-6 mb-3">-->
+                            <!--<label for="image2">Second Image</label>-->
+                            <!--<input type='text' class="form-control" id="image2"-->
+                                   <!--name='image[]' placeholder='second image link' required/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-row">-->
+                        <!--<div class="col-md-6 mb-3">-->
+                            <!--<label for="image3">Third Image</label>-->
+                            <!--<input type='text' class="form-control" id="image3"-->
+                                   <!--name='image[]' placeholder='third image link' required/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-row">
+                        <button style="float:right" id='btnSaveIt' type="submit" class="btn btn-primary">
+                            Edit Item
+                        </button>
+                        <button style="float:right" type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--&lt;!&ndash;Edit Validation Script&ndash;&gt;-->
+<!--<script type="text/javascript">-->
+<!--// Example starter JavaScript for disabling form submissions if there are invalid fields-->
+    <!--$(function() {-->
+        <!--$("#newModalForm").validate({-->
+            <!--rules: {-->
+                <!--name: "required",-->
+                <!--description: "required",-->
+                <!--price: "required",-->
+            <!--},-->
+            <!--messages: {-->
+                <!--name: {-->
+                    <!--required: "Please provide Item Name."-->
+                <!--},-->
+                <!--description:{-->
+                    <!--required: "Please provide Item Description."-->
+                <!--},-->
+                <!--price:{-->
+                    <!--required: "Please provide Item Price."-->
+                <!--},-->
+            <!--}-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+
+
+<!--Delete Modal-->
+<div class="modal fade" tabindex="-1" id="DeleteModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteModalLabel">
+                    Delete Item
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method ='POST'
+		                enctype='multipart/form-data'
+		                action ="{{ url_for('deleteItem', catalog_id = catalog.id, item_id = item.id)}}">
+                    <div class="form-group">
+                        <button style="float:right" type="submit" class="btn btn-primary">
+                            Yes
+                        </button>
+                        <button style="float:right" type="button" class="btn btn-secondary" data-dismiss="modal">
+                            No
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

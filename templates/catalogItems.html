@@ -1,0 +1,135 @@
+<div class="title">
+    <h2 style="display: inline-block;">
+        {{catalog.name}}
+    </h2>
+    {% if 'username' in session %}
+        <button data-toggle="modal" data-target="#NewItemModal" style="display: inline-block;float: right;"  type="submit" class="btn btn-success">
+            new Item
+        </button>
+    {% endif %}
+</div>
+
+<div class="cd-section">
+    <div class="row">
+        {% for i in item %}
+        <div class="col-md-6 col-lg-4">
+            <div class="rotating-card-container">
+                <div class="card card-rotate card-background">
+                    <div class="front front-background"
+                         style="background-image: url('{{i.photo}}');
+                         height: 302px; width: 360px;">
+                        <div class="card-content">
+                            <h2 class="card-title">{{i.name}}</h2>
+                        </div>
+                    </div>
+                    <!-- change background image to solid color after rotate
+                        + add price
+                        + add edit and delete button after rotate
+                    -->
+                    <div class="back back-background"
+                         style="background-image: url('{{i.photo}}');
+                         height: 302px; width: 360px;">
+                        <div class="card-content">
+                            <div class="footer text-center">
+                                <a href="{{url_for('showItem' , catalog_id = catalog.id, item_id = i.id) }}"
+                                   class="btn btn-success btn-just-icon btn-fill btn-round">
+                                    <i class="material-icons">shopping_cart</i>
+                                        Click here
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!--New Item Modal-->
+<div class="modal fade" tabindex="-1" id="NewItemModal" role="dialog" aria-labelledby="NewItemModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditModalLabel">
+                    New Item
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method ='POST'
+		                enctype='multipart/form-data'
+		                action ="{{ url_for('newCatalogItem',catalog_id=catalog.id)}}">
+                    <div class="form-group">
+                        <label for="name">
+                            Item Name
+                        </label>
+                        <input type="text" class="form-control" id="name" name='name' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">
+                            Item Description
+                        </label>
+                        <input type="text" class="form-control" id="description"
+                               name='description' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">
+                            Item Price
+                        </label>
+                        <input type="text" class="form-control" id="price" name='price' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="image1">
+                            First Image
+                        </label>
+                        <input type="text" class="form-control"  id="image1" name='image[]' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="image2">
+                            Second Image
+                        </label>
+                        <input type="text" class="form-control" id="image2" name='image[]' required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="image3">
+                            Third Image
+                        </label>
+                        <input type="text" class="form-control" id="image3" name='image[]' required/>
+                    </div>
+
+					<!--<div class="form-group">-->
+                        <!--<input type='text' name='name' placeholder='name'/>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+					    <!--<input type='text' name='description' placeholder='description'/>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+					    <!--<input type='text' name='price' placeholder='price'/>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<input type='text' name='image[]' placeholder='first image link'/>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<input type='text' name='image[]' placeholder='second image link'/>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<input type='text' name='image[]' placeholder='third image link'/>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <button style="float:right" type="submit" class="btn btn-primary">
+                            New Item
+                        </button>
+                        <button style="float:right" type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

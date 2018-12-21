@@ -1,0 +1,71 @@
+/*CSS Styles*/
+.pro-badge {
+    font-size:20px!important;
+    right:-100px!important;
+}
+
+.page-header{
+    height: 68vh!important;
+}
+
+.header-filter:after,
+.index-page .header-filter:after {
+    background: rgba(68, 65, 68, 0.88)!important;
+    background: linear-gradient(45deg, rgba(68, 65, 68, 0.88) 0%, rgba(72, 61, 70, 0.31) 100%)!important;
+    background: -moz-linear-gradient(135deg, rgba(68, 65, 68, 0.88) 0%, rgba(72, 61, 70, 0.31) 100%)!important;
+    background: -webkit-linear-gradient(135deg, rgba(68, 65, 68, 0.88) 0%, rgba(72, 61, 70, 0.31) 100%)!important;
+}
+
+.container {
+        width: 1130px;
+        /*background-color: rgba(152, 152, 152, 0.16);*/
+}
+.carousel{
+    /*background: #2f4357;*/
+    margin-top: 20px;
+}
+
+.carousel .item{
+    min-height: 200px; /* Prevent carousel from being distorted if for some reason image doesn't load */
+}
+.carousel .item img{
+    margin: 0 10px 10px 0; /* Align slide image horizontally center */
+    height: 560px;
+}
+.blackColor {
+    color:black!important;
+}
+.main-description{
+    color: #000;
+    font-size: 19px;
+    font-family: 'OpenSansLight';
+    margin-bottom: 27px;
+    margin-top: 3px;
+}
+#itemImages {
+    float: left;
+    /*background-color: blue;*/
+}
+#ItemDetails {
+
+    /*background-color: black;*/
+}
+.itemName{
+    padding: 55px 0 25px 0;
+    text-align: center;
+    font-weight: bold;
+}
+.ItemButtons {
+    clear: left;
+    float: right;
+    /*justify-content: flex-start;*/
+}
+.ItemPrice{
+    float: right;
+    padding-right: 68px;
+    font-size: 80px;
+}
+.modal-backdrop {
+    /*position: inherit!important;*/
+    z-index: 0!important;
+}
