@@ -79,7 +79,7 @@ YourMachineName:vagrant$ vagrant ssh
 10. Copy the Client ID and paste it into the data-clientid in header.html
 11. On the Dev Console Select Download JSON
 12. Rename JSON file to client_secrets.json
-12. Place JSON file in item-catalog directory
+12. Place JSON file in catalog directory
 13. Run application
 14. To login using google: [https://localhost:5000/login](https://localhost:5000/login)
 
