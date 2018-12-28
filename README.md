@@ -30,14 +30,14 @@ YourMachineName:vagrant$ vagrant ssh
 ```
 ### 2. Downloading and Running The Project
    * Prerequisites
-    - Python
-    - HTML
-    - CSS
-    - Flask FrameWork use:
-      `pip install flask`
-    - SQLAlchemy use:
+     - Python
+     - HTML
+     - CSS
+     - Flask FrameWork use:
+          `pip install flask`
+     - SQLAlchemy use:
           `pip3 install SQLAlchemy`
-    - oauth2client use:
+     - oauth2client use:
           `pip3 install oauth2client`
   * Inside the vagrant create <b>“catalog-project“</b> folder:
     ```console
